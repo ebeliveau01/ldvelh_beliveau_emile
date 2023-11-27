@@ -184,6 +184,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.afficher_sauvegarde()
         self.sauvegarderDiscipline()
         self.sauvegarderArme()
+        self.sauvegarderJoueur()
 
     # Fonction qui charge une partie déjà enregistrer
     def charger(self):
@@ -376,25 +377,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         resultat = cursor.fetchall()
 
-        self.textEdit_bourse = resultat[0][0]
-        self.textEdit_points_habilete = resultat[0][1]
-        self.textEdit_endurance = resultat[0][2]
-        self.textEdit_objets_speciaux = resultat[0][3]
-        self.textEdit_repas = resultat[0][4]
-        self.textEdit_objets = resultat[0][5]
+        self.textEdit_bourse.clear()
+        self.textEdit_points_habilete.clear()
+        self.textEdit_endurance.clear()
+        self.textEdit_objets_speciaux.clear()
+        self.textEdit_repas.clear()
+        self.textEdit_objets.clear()
+
+        self.textEdit_bourse.setText(str(resultat[0][0]))
+        self.textEdit_points_habilete.setText(str(resultat[0][1]))
+        self.textEdit_endurance.setText(str(resultat[0][2]))
+        self.textEdit_objets_speciaux.setText(str(resultat[0][3]))
+        self.textEdit_repas.setText(str(resultat[0][4]))
+        self.textEdit_objets.setText(str(resultat[0][5]))
 
     # Sauvegarde tous les aspects du joueur autre que les disciplines et les armes
     def sauvegarderJoueur(self):
         cursor = mydb.cursor()
 
-        bourse = self.textEdit_bourse.text()
-        pointsHabilete = self.textEdit_points_habilete.text()
-        endurance = self.textEdit_endurance.text()
-        objetsSpeciaux = self.textEdit_objets_speciaux.text()
-        repas = self.textEdit_repas.text()
-        objets = self.textEdit_objets.text()
+        bourse = self.textEdit_bourse.toPlainText()
+        pointsHabilete = self.textEdit_points_habilete.toPlainText()
+        endurance = self.textEdit_endurance.toPlainText()
+        objetsSpeciaux = self.textEdit_objets_speciaux.toPlainText()
+        repas = self.textEdit_repas.toPlainText()
+        objets = self.textEdit_objets.toPlainText()
 
-        requete = "UPDATE personnage SET bourse=%s,points_habilete=%s,endurance=%s,objets_speciaux=%s,repas=%s,objets=%s WHERE id_perso = %s"
+        requete = "UPDATE personnage SET bourse=%s,points_habilete=%s,endurance=%s,objets_speciaux=%s,repas=%s,objets=%s WHERE id = %s"
         valeur = (bourse,pointsHabilete,endurance,objetsSpeciaux,repas,objets,self.id_personnage)
 
         try:
