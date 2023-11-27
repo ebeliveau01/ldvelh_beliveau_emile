@@ -183,6 +183,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print("Erreur lors de la sauvegarde")
         self.afficher_sauvegarde()
         self.sauvegarderDiscipline()
+        self.sauvegarderArme()
 
     # Fonction qui charge une partie déjà enregistrer
     def charger(self):
@@ -355,7 +356,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print("Erreur lors de la sauvegarde")
 
     # Sauvegarde toutes les armes du joueur
-    def sauvegarderDiscipline(self):
+    def sauvegarderArme(self):
         arme1 = self.comboBox_arme_1.currentText().split(':')
         arme2 = self.comboBox_arme_2.currentText().split(':')
 
